@@ -2,9 +2,9 @@
 
 const PluginError = require('plugin-error');
 const htmlmin = require('html-minifier');
-const through = require('through2');
+const through = require('./through2');
 
-module.exports = options => {
+module.exports = function (options) {
   return through.obj(function (file, enc, next) {
     if (file.isNull()) {
       next(null, file);
@@ -22,6 +22,7 @@ module.exports = options => {
         cb(null, contents);
         next(null, file);
       } catch (err) {
+        console.log("Continue with errors: ", { file });
         let contents = buf.toString();
         if (next === cb) {
           file.contents = contents;
