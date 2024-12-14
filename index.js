@@ -1,8 +1,9 @@
 'use strict';
 
 const PluginError = require('plugin-error');
+const path = require('node:path')
 const htmlmin = require('html-minifier');
-const through = require('./through2');
+const through = require(path.resolve(__dirname, 'through2.js'));
 
 module.exports = function (options) {
   return through.obj(function (file, enc, next) {
@@ -22,7 +23,9 @@ module.exports = function (options) {
         cb(null, contents);
         next(null, file);
       } catch (err) {
-        console.log("Continue with errors: ", { file });
+        console.log("Continue with errors: ", {
+          file
+        });
         let contents = buf.toString();
         if (next === cb) {
           file.contents = contents;
