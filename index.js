@@ -26,7 +26,7 @@ module.exports = function (options) {
         console.log("Continue with errors: ", {
           file
         });
-        let contents = buf.toString();
+        let contents = buf;
         if (next === cb) {
           file.contents = contents;
           cb(null, file);
